@@ -1,20 +1,32 @@
 import React, { useState } from "react";
+import PatientData from "../services/patientData";
 import { useNavigate } from "react-router-dom";
 import "../Styles/PatientForm.css";
 
 function PatientForm() {
   const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //Send Data to Server and then to Save in Database
     // However for now save it in array or file
-    navigate("/feedback");
+    const data = {
+      name,
+      dob,
+      gender,
+      email,
+    };
+
+    try {
+      await PatientData.SendData(data);
+      navigate("/feedback");
+    } catch (error) {
+      console.log(error);
+    }
 
     console.log(
       `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
