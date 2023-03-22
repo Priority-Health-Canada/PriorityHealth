@@ -22,7 +22,7 @@ function PatientForm() {
     };
 
     try {
-      await PatientData.SendData(data);
+      await PatientData.sendData(data);
       navigate("/feedback");
     } catch (error) {
       console.log(error);

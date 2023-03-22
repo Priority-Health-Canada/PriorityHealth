@@ -1,7 +1,7 @@
 import http from "./http-common";
 
 class PatientData {
-  SendData(data) {
+  sendData(data) {
     return http.post("api/patient", data);
   }
 }
