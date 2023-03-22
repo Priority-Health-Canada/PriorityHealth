@@ -1,3 +1,0 @@
-# FrontEnd - React
-
-# BackEnd - Node
