@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
+import PatientInfo from "./types/patientInfo";
 import { saveData } from "./controller/controller";
+import calcultePMS from "./controller/calculatePMS";
 
 const app = express(); //Create an instance of express app
 app.use(cors()); //Allow different domains to access endpoints in backend
@@ -13,20 +15,20 @@ app.get("/", (req, res) => {
 // Handle POST requests to /api/patient
 app.post("/api/patient", async (req, res) => {
   try {
-    // Process the data from the request body
-    const name = req.body.name;
-    const dob = req.body.dob;
-    const gender = req.body.gender;
-    const email = req.body.email;
 
-    const data = {
-      name,
-      dob,
-      gender,
-      email,
+    // Parse the data from the request body
+    const patientData: PatientInfo = {
+      name: req.body.name,
+      dob: req.body.dob,
+      gender: req.body.gender,
+      email: req.body.email
     };
+    
+    // Calculate Patient Metric Score based off their data input in the form
+    const pmScore = calcultePMS(patientData);
+
     // Save the data to your database or file
-    await saveData(data);
+    await saveData({...patientData, pmScore: pmScore});
     // Send a success response back to the client
     res.send("Data saved to file");
   } catch (error) {
