@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { saveData } from "./controller/controller";
 
 const app = express(); //Create an instance of express app
 app.use(cors()); //Allow different domains to access endpoints in backend
@@ -10,20 +11,29 @@ app.get("/", (req, res) => {
 });
 
 // Handle POST requests to /api/patient
-app.post("/api/patient", (req, res) => {
-  // Process the data from the request body
-  console.log("We ar here");
-  const name = req.body.name;
-  const dob = req.body.dob;
-  const gender = req.body.gender;
-  const email = req.body.email;
+app.post("/api/patient", async (req, res) => {
+  try {
+    // Process the data from the request body
+    const name = req.body.name;
+    const dob = req.body.dob;
+    const gender = req.body.gender;
+    const email = req.body.email;
 
-  // Save the data to your database or file
-  // ...
-  console.log(req.body);
-
-  // Send a response to the client
-  res.send(name);
+    const data = {
+      name,
+      dob,
+      gender,
+      email,
+    };
+    // Save the data to your database or file
+    await saveData(data);
+    // Send a success response back to the client
+    res.send("Data saved to file");
+  } catch (error) {
+    // If there's an error, log it and send an error response to the client
+    console.log(error);
+    res.status(500).send("Error saving data to file");
+  }
 });
 
 const PORT = process.env.PORT || 5000;
