@@ -1,17 +1,19 @@
 import fs from "fs/promises";
 
-export async function saveData(data: {
+interface Data {
   name: string;
   dob: any;
   gender: string;
   email: string;
-}): Promise<void> {
+}
+
+export async function saveData(data: Data): Promise<void> {
   try {
     // Read the contents of the patients.json file
     const dataFromFile = await fs.readFile("patients.json", "utf8");
 
     // Parse the contents of the file as JSON
-    let patientData = JSON.parse(dataFromFile);
+    let patientData: Data[] = JSON.parse(dataFromFile);
 
     // Add the new patient data to the parsed array
     patientData.push(data);
