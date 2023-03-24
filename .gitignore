@@ -2,9 +2,9 @@
 
 # dependencies
 /frontend/node_modules
-/backend/node_modules
-/backend/build
-/backend/patients.json
+/node_modules
+/build
+/patients.json
 /frontend/build
 /frontend/.env
 /.pnp
