@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "nodemon server.ts",
+    "backend:build": "tsc -p tsconfig.json",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "build": "npm run build --prefix frontend && node build/server.js"
+    "build:compile": "npm run backend:build && node build/server.js",
+    "build": "npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",

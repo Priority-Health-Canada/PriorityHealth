@@ -33,7 +33,7 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Create Backend Build
-        run: npm run build
+        run: npm run backend:build
 
   FrontendCI:
     name: Frontend Build
