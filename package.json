@@ -2,13 +2,16 @@
   "name": "code-hack",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "build/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.ts",
+    "start": "node build/server.js",
+    "start:dev": "nodemon server.ts",
+    "start:prod": "npm run build && npm run start",
+    "build:backend": "rimraf build && tsc",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run start\" \"npm run frontend\"",
-    "build": "npm run build --prefix frontend"
+    "build:frontend": "npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
