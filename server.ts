@@ -4,9 +4,15 @@ import PatientInfo from "./types/patientInfo";
 import { saveData } from "./controller/controller";
 import calcultePMS from "./controller/calculatePMS";
 
+const path = require("path");
 const app = express(); //Create an instance of express app
 app.use(cors()); //Allow different domains to access endpoints in backend
 app.use(express.json()); // parse requests of content-type - application/json
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
 
 app.get("/", (req, res) => {
   res.send("From BACKEND (Port 5000): Priority Based Family Physician Access");
@@ -15,20 +21,19 @@ app.get("/", (req, res) => {
 // Handle POST requests to /api/patient
 app.post("/api/patient", async (req, res) => {
   try {
-
     // Parse the data from the request body
     const patientData: PatientInfo = {
       name: req.body.name,
       dob: req.body.dob,
       gender: req.body.gender,
-      email: req.body.email
+      email: req.body.email,
     };
-    
+
     // Calculate Patient Metric Score based off their data input in the form
     const pmScore = calcultePMS(patientData);
 
     // Save the data to your database or file
-    await saveData({...patientData, pmScore: pmScore});
+    await saveData({ ...patientData, pmScore: pmScore });
     // Send a success response back to the client
     res.send("Data saved to file");
   } catch (error) {
