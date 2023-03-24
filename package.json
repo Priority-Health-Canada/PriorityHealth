@@ -8,7 +8,7 @@
     "backend": "nodemon server.ts",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "build": "npm run build --prefix frontend && node server.js"
+    "build": "npm run build --prefix frontend && node build/server.js"
   },
   "repository": {
     "type": "git",
