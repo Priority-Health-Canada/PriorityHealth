@@ -4,7 +4,6 @@
 /frontend/node_modules
 /node_modules
 /build
-/frontend/build
 /patients.json
 /frontend/.env
 /.pnp
