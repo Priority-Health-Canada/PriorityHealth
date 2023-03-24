@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "nodemon server.ts",
-    "backend:build": "tsc -p tsconfig.json"
+    "backend:build": "tsc -p tsconfig.json",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",
