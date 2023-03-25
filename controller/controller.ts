@@ -4,6 +4,7 @@ import PatientData from "../types/patientInfo";
 
 export async function saveData(data: PatientData): Promise<void> {
   try {
+    console.log("Trying: ")
 
     // Read the contents of the patients.json file
     const dataFromFile = await fs.readFile("patients.json", "utf8");
@@ -22,9 +23,11 @@ export async function saveData(data: PatientData): Promise<void> {
   } catch (error: any) {
     // If the file does not exist, create a new file with the new patient data
     if (error.code === "ENOENT") {
+      console.log("Catch error ENOENT", error);
       const jsonStr = JSON.stringify([data], null, 2);
       await fs.writeFile("patients.json", jsonStr);
     } else {
+      console.log("Else Catch error", error);
       // If there was any other error, re-throw it to be caught elsewhere
       throw error;
     }

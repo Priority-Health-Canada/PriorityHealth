@@ -26,6 +26,7 @@ if(process.env.NODE_ENV === 'production') {
 // Handle POST requests to /api/patient
 app.post("/api/patient", async (req, res) => {
   try {
+    console.log("FE data in BE: ", req.body);
     // Parse the data from the request body
     const patientData: PatientInfo = {
       name: req.body.name,
