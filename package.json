@@ -4,6 +4,7 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
+    "heroku-prebuild": "cd frontend && npm run build",
     "build": "npx tsc",
     "start": "node build/server.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/server.js\"",
