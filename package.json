@@ -7,7 +7,7 @@
     "postinstall": "cd frontend && npm run build",
     "build": "npx tsc",
     "start": "node build/server.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/server.js\"",
+    "dev": "concurrently \"npm run postinstall\" \"npx tsc --watch\" \"nodemon -q build/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
