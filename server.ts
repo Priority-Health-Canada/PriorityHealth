@@ -8,14 +8,13 @@ const path = require("path");
 const app = express(); //Create an instance of express app
 app.use(cors()); //Allow different domains to access endpoints in backend
 app.use(express.json()); // parse requests of content-type - application/json
+app.use(express.static(path.join(__dirname, "../frontend/build"))); // Pointing to the Express server where the React build is.
 
-if (app.get("env") === "production") {
-  // Pointing to the Express server where the React build is.
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+if (process.env.NODE_ENV?.trim() === "production") {
   app.get("/*", (req: express.Request, res: express.Response) => {
     res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
   });
-} else {
+} else if (process.env.NODE_ENV?.trim() === "development") {
   app.get("/", (req: express.Request, res: express.Response) => {
     res.send(
       "From BACKEND (Port 5000): Priority Based Family Physician Access"

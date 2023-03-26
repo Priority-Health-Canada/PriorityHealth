@@ -1,16 +1,11 @@
 import axios from "axios";
-import React from "react";
-
-function ReactIsInDevelomentMode() {
-  var result = "_self" in React.createElement("div") ? true : false;
-  return result;
-}
 
 var url = "";
 
-if (ReactIsInDevelomentMode) {
+if (process.env.NODE_ENV?.trim() === "development") {
+  console.log(process.env.NODE_ENV);
   url = "http://localhost:5000/";
-} else {
+} else if (process.env.NODE_ENV?.trim() === "production") {
   url = process.env.REACT_APP_URL;
 }
 
