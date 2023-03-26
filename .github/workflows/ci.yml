@@ -5,9 +5,9 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   BackendCI:
@@ -20,28 +20,27 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
+      - uses: actions/checkout@v3
 
-    
-    - name: Install Dependencies
-      run: npm ci --legacy-peer-deps
-    
-    - name: Create Backend Build
-      run: npm run build
-      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Create Backend Build
+        run: npm run build
+
   FrontendCI:
     name: Frontend Build
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: './frontend'
+        working-directory: "./frontend"
 
     strategy:
       matrix:
@@ -49,21 +48,17 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
+      - uses: actions/checkout@v3
 
-    
-    - name: Install Dependencies
-      run: npm ci
-    
-    - name: Create Frontend Build 
-      run: npm run build
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
-    
-  
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Create Frontend Build
+        run: npm run build

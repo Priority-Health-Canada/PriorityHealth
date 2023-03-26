@@ -1,8 +1,8 @@
 import http from "./http-common";
 
 class PatientData {
-  sendData(data) {
-    return http.post("api/patient", data);
+  async sendData(data) {
+    return await http.post("api/patient", data);
   }
 }
 
