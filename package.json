@@ -2,7 +2,7 @@
   "name": "code-hack",
   "version": "1.0.0",
   "description": "",
-  "main": "build/server.js",
+  "main": "build/src/server.js",
   "scripts": {
     "postinstall": "cd frontend && npm run build",
     "frontend:dev": "cd frontend && npm start",
