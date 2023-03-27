@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PatientData from "../services/patientData";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
 
 function PatientForm() {
   const navigate = useNavigate();
@@ -58,16 +59,7 @@ function PatientForm() {
 
   return (
     <>
-      <div
-        className="navbar navbar-dark bg-primary ml-0"
-        style={{ width: "100%" }}
-      >
-        <div className="container mx-0">
-          <a className="navbar-brand" href="/">
-            Priority Health Logo
-          </a>
-        </div>
-      </div>
+      <NavBar />
       <div className="container mt-4 mx-4">
         <h1 className="mb-4">Personal Information</h1>
         <Form onSubmit={handleSubmit}>
@@ -508,7 +500,7 @@ function PatientForm() {
             </div>
           </Form.Group>
 
-          <Button variant="primary" type="submit" className="my-3">
+          <Button variant="warning" type="submit" className="my-3">
             Submit
           </Button>
         </Form>
