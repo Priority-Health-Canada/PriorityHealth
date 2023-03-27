@@ -34,6 +34,17 @@ app.post(
         dob: req.body.dob,
         gender: req.body.gender,
         email: req.body.email,
+        phn: req.body.phn,
+        mhq1: req.body.mhq1,
+        mhq2: req.body.mhq2,
+        mhq3: req.body.mhq3,
+        mhq4: req.body.mhq4,
+        mhq5: req.body.mhq5,
+        mhq6: req.body.mhq6,
+        adl1: req.body.adl1,
+        adl2: req.body.adl2,
+        adl3: req.body.adl3,
+        adl4: req.body.adl4,
       };
 
       // Calculate Patient Metric Score based off their data input in the form
