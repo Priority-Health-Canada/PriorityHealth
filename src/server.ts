@@ -1,11 +1,17 @@
 import express from "express";
 import cors from "cors";
+// import mongoose from 'mongoose'
+import path from "path";
 import PatientInfo from "./types/patientInfo";
 import { saveData } from "./controller/controller";
 import calcultePMS from "./controller/calculatePMS";
+import connectDB from "./config/connectDB";
 
-const path = require("path");
 const app = express(); //Create an instance of express app
+
+//connect to db
+connectDB();
+
 app.use(cors()); //Allow different domains to access endpoints in backend
 app.use(express.json()); // parse requests of content-type - application/json
 app.use(express.static(path.join(__dirname, "../frontend/build"))); // Pointing to the Express server where the React build is.

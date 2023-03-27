@@ -3,16 +3,23 @@
 # dependencies
 /node_modules
 /frontend/node_modules
+
+# Production Builds
+/build 
 /frontend/build
+
+# Env variables and local data storage file
 /patients.json
+.env
+
+
 /.pnp
 .pnp.js
 
 # testing
 /coverage
 
-# production
-/build
+
 
 # # misc
 # .DS_Store
