@@ -14,7 +14,7 @@ app.use(express.json()); // parse requests of content-type - application/json
 app.use(express.static(path.join(__dirname, "../frontend/build"))); // Pointing to the Express server where the React build is.
 
 if (process.env.NODE_ENV?.trim() === "production") {
-  app.get("/*", (req: express.Request, res: express.Response) => {
+  app.get("/index.html", (req: express.Request, res: express.Response) => {
     res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
   });
 } else if (process.env.NODE_ENV?.trim() === "development") {
