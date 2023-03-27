@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/aqeelmozumder/CodeHack/issues"
   },
-  "homepage": "https://github.com/aqeelmozumder/CodeHack#readme",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
