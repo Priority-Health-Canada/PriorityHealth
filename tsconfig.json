@@ -110,6 +110,5 @@
     "build",
     "node_modules",
     "frontend"
-  ],
-  "include": ["src"]
+  ]
 }

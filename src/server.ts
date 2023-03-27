@@ -1,11 +1,8 @@
 import express from "express";
 import cors from "cors";
-// import mongoose from 'mongoose'
 import path from "path";
-import PatientInfo from "./types/patientInfo";
-import { saveData } from "./controller/controller";
-import calcultePMS from "./controller/calculatePMS";
 import connectDB from "./config/connectDB";
+import { create } from "./controller/patient.CRUD";
 
 const app = express(); //Create an instance of express app
 
@@ -28,34 +25,8 @@ if (process.env.NODE_ENV?.trim() === "production") {
   });
 }
 
-// Handle POST requests to /api/patient
-app.post(
-  "/api/patient",
-  async (req: express.Request, res: express.Response) => {
-    try {
-      console.log("FE data in BE: ", req.body);
-      // Parse the data from the request body
-      const patientData: PatientInfo = {
-        name: req.body.name,
-        dob: req.body.dob,
-        gender: req.body.gender,
-        email: req.body.email,
-      };
-
-      // Calculate Patient Metric Score based off their data input in the form
-      const pmScore = calcultePMS(patientData);
-
-      // Save the data to your database or file
-      await saveData({ ...patientData, pmScore: pmScore });
-      // Send a success response back to the client
-      res.send("Data saved to file");
-    } catch (error) {
-      // If there's an error, log it and send an error response to the client
-      console.log(error);
-      res.status(500).send("Error saving data to file");
-    }
-  }
-);
+// Handle POST requests to /api/patient by calling create function to save data in database
+app.post("/api/patient", create);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
