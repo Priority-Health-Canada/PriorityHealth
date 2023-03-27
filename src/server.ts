@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "../frontend/build"))); // Pointing 
 
 if (process.env.NODE_ENV?.trim() === "production") {
   app.get("/*", (req: express.Request, res: express.Response) => {
-    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+    res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
   });
 } else if (process.env.NODE_ENV?.trim() === "development") {
   app.get("/", (req: express.Request, res: express.Response) => {
