@@ -28,7 +28,7 @@ jobs:
         run: echo ${{ secrets.MONGO_URI }}
 
       - name: Add config variable
-        run: heroku config:set MONGO_URI=${{ secrets.MONGO_URI }} --app ${{ env.HEROKU_APP_NAME }}
+        run: heroku config:set MONGO_URI=${{ secrets.MONGO_URI }} --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Create Heroku Review app
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
