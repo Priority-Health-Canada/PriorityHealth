@@ -24,6 +24,9 @@ jobs:
           heroku_app_name: "priority-health"
           justlogin: true
 
+      - name: Debug
+        run: echo ${{ github.event.action }}
+        
       - name: Create Heroku Review app
         if: github.event.action == 'opened'
         run: heroku apps:create ${{ env.HEROKU_APP_NAME }}
