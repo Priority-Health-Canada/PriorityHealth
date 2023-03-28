@@ -9,7 +9,7 @@ jobs:
   heroku-pull-request:
     runs-on: ubuntu-latest
     env:
-      HEROKU_APP_NAME: p-health-pr-${{ github.event.number }}-${{ github.sha[34:38] }}
+      HEROKU_APP_NAME: p-health-pr-${{ github.event.number }}-${{ github.sha[0:5] }}
     
     steps:
       - name: Checkout repository
