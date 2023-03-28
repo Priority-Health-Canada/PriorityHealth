@@ -1,3 +1,5 @@
+# 
+
 name: Deploy Pull Request Branch as Review App Heroku
 on:
   pull_request:
@@ -8,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HEROKU_APP_NAME: priority-health-pr-${{ github.event.number }}
-
+      VERSION_TAG: "pr-${{ github.event.number }}-${{ github.sha }}"
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,9 +38,9 @@ jobs:
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
       - name: Push to Heroku
-        run: git push heroku ${{ github.head_ref }}:master --force
+        run: git push heroku ${{ github.head_ref }}:master --force --app=${{ env.HEROKU_APP_NAME }} --version=${{ env.VERSION_TAG }}
 
       - name: Destroy Heroku Review app
         if: github.event.action == 'closed'
-        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
+        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }} --version=${{ env.VERSION_TAG }}
 
