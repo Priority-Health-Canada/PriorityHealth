@@ -25,6 +25,8 @@ if (process.env.NODE_ENV?.trim() === "production") {
   });
 }
 
+// app.get("/feedback")
+
 // Handle POST requests to /api/patient by calling create function to save data in database
 app.post("/api/patient", create);
 
