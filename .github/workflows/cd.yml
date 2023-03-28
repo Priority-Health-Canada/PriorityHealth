@@ -1,45 +1,47 @@
-# 
+# To Automate Deployment Process of each PR 
+# Better suited when application grows and involves separate teams.
+# Currently not required
 
-name: Deploy Pull Request Branch as Review App Heroku
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
+# name: Deploy Pull Request Branch as Review App Heroku
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened, closed]
 
-jobs:
-  heroku-pull-request:
-    runs-on: ubuntu-latest
-    env:
-      HEROKU_APP_NAME: p-health-pr-${{ github.event.number }}-${{ github.sha[0:5] }}
+# jobs:
+#   heroku-pull-request:
+#     runs-on: ubuntu-latest
+#     env:
+#       HEROKU_APP_NAME: p-health-pr-${{ github.event.number }} #-${{ github.sha[0:5] }} if PR has new changes, app name could be made unique with github.sha
     
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
-          ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
+#           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
 
-      - name: Login to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: "mustafa.wasif96@gmail.com"
-          heroku_app_name: "priority-health"
-          justlogin: true
+#       - name: Login to Heroku
+#         uses: akhileshns/heroku-deploy@v3.12.12
+#         with:
+#           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#           heroku_email: "mustafa.wasif96@gmail.com"
+#           heroku_app_name: "priority-health"
+#           justlogin: true
 
-      - name: Create Heroku Review app
-        if: github.event.action == 'opened' || github.event.action == 'synchronize'
-        run: heroku apps:create ${{ env.HEROKU_APP_NAME }}
+#       - name: Create Heroku Review app
+#         if: github.event.action == 'opened' # || github.event.action == 'synchronize' if PR has new changes
+#         run: heroku apps:create ${{ env.HEROKU_APP_NAME }}
 
-      - name: Add config variable
-        run: heroku config:set MONGO_URI=${{ secrets.MONGO_URI }} --app=${{ env.HEROKU_APP_NAME }}
+#       - name: Add config variable
+#         run: heroku config:set MONGO_URI=${{ secrets.MONGO_URI }} --app=${{ env.HEROKU_APP_NAME }}
       
-      - name: Add Heroku remote #creates a Git remote named heroku
-        run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+#       - name: Add Heroku remote #creates a Git remote named heroku
+#         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
 
-      - name: Push to Heroku
-        run: git push heroku ${{ github.head_ref }}:master --force --app=${{ env.HEROKU_APP_NAME }}
+#       - name: Push to Heroku
+#         run: git push heroku ${{ github.head_ref }}:master --force --app=${{ env.HEROKU_APP_NAME }}
 
-      - name: Destroy Heroku Review app
-        if: github.event.action == 'closed'
-        run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
+#       - name: Destroy Heroku Review app
+#         if: github.event.action == 'closed'
+#         run: heroku apps:destroy --app=${{ env.HEROKU_APP_NAME }} --confirm=${{ env.HEROKU_APP_NAME }}
 
