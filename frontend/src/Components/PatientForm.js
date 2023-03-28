@@ -6,7 +6,7 @@ import NavBar from "./NavBar";
 
 function PatientForm() {
   const navigate = useNavigate();
-  const [PHN, setPHN] = useState("");
+  const [phn, setPHN] = useState("");
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
@@ -28,6 +28,7 @@ function PatientForm() {
     //Send Data to Server and then to Save in Database
     // However for now save it in array or file
     const data = {
+      phn,
       name,
       dob,
       gender,
@@ -70,7 +71,7 @@ function PatientForm() {
               inputMode="numeric"
               pattern="[0-9]*"
               placeholder="Enter PHN"
-              value={PHN}
+              value={phn}
               onChange={(e) => setPHN(e.target.value)}
               required
             />
