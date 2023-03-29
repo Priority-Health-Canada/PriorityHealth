@@ -1,7 +1,8 @@
-function LoginButton(){
+function LoginButton({handleClick}){
+
     return(
-        <>
-            <button className="btn btn-outline-dark ms-auto">Admin Login</button>
+        <> 
+            <button className="btn btn-outline-dark ms-auto" onClick={handleClick}>Admin Login</button>
         </>
     )
 }
