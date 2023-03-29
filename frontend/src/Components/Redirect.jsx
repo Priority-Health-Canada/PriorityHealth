@@ -20,7 +20,6 @@ function Redirect() {
     <>
       <Routes>
         <Route exact path="/" element=<PatientForm /> />
-        <Route path="/feedback" element=<Feedback /> />
       </Routes>
     </>
   );

@@ -1,6 +1,7 @@
 import React from "react";
+import LoginButton from "./LoginButton";
 
-const NavBar = () => {
+const NavBar = ({isSubmitProp}) => {
   return (
     <div
       className="navbar navbar-dark bg-warning ml-0"
@@ -15,6 +16,7 @@ const NavBar = () => {
           Priority Health Logo
         </a>
       </div>
+      {isSubmitProp ? <div></div>: <LoginButton />}
     </div>
   );
 };
