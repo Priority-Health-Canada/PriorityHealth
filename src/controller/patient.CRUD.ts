@@ -2,16 +2,20 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Patient from "../models/Patient";
 import PatientInfo from "../types/patientInfo";
-import calcultePMS from "./calculatePMS";
+// import calcultePMS from "./calculatePMS";
+import PMScore from "./PMScore";
 
 // Create and Save a new Patient info
 export const create = async (req: Request, res: Response) => {
+  
+  //Get form data from FE
   const formData: PatientInfo = {
+    phn: req.body.phn,
     name: req.body.name,
     dob: req.body.dob,
     gender: req.body.gender,
     email: req.body.email,
-    phn: req.body.phn,
+    indigenous: req.body.indigenous,
     mhq1: req.body.mhq1,
     mhq2: req.body.mhq2,
     mhq3: req.body.mhq3,
@@ -23,8 +27,9 @@ export const create = async (req: Request, res: Response) => {
     adl3: req.body.adl3,
     adl4: req.body.adl4,
   };
+
   // Calculate Patient Metric Score based off their data input in the form
-  const pmScore = calcultePMS(formData);
+  const pmScore: number = PMScore.calcultePMS(formData);
 
   const patientData = new Patient({ ...formData, pmScore: pmScore });
 
