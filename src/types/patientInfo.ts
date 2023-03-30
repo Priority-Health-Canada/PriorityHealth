@@ -1,9 +1,10 @@
 export default interface PatientInfo {
+  phn: number;
   name: string;
   dob: Date;
   gender: string;
   email: string;
-  phn: number;
+  indigenous: string;
   mhq1: string;
   mhq2: string;
   mhq3: string;
