@@ -1,9 +1,6 @@
-import NavBar from "./NavBar";
-
 export function Feedback() {
   return (
     <div>
-      <NavBar />
       <div className="container my-5">
         <h1 className="text-center mb-4">Thank you for your submission</h1>
         <p className="lead text-center mb-5">Your Patient Metric Score is</p>

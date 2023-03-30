@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Feedback } from "./Feedback";
 import PatientForm from "./PatientForm";
-//import patientDataService from "../services/patientDataService";
 
 function Redirect() {
   // const [data, setData] = useState("");
@@ -20,7 +18,6 @@ function Redirect() {
     <>
       <Routes>
         <Route exact path="/" element=<PatientForm /> />
-        <Route path="/feedback" element=<Feedback /> />
       </Routes>
     </>
   );
