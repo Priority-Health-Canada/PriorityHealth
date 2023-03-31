@@ -2,7 +2,7 @@ function LoginButton({handleClick}){
 
     return(
         <> 
-            <button className="btn btn-outline-dark ms-auto" onClick={handleClick}>Admin Login</button>
+            <button className="btn btn-outline-dark ms-auto" style={{fontWeight: "bold"}} onClick={handleClick}>Admin Login</button>
         </>
     )
 }
