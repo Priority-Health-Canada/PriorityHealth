@@ -3,12 +3,10 @@ import LoginPage from "./AdminComponents/LoginPage";
 import LoginButton from "./LoginButton";
 
 const NavBar = ({isHomePage}) => {
-  console.log("Is Home Page: ", isHomePage);
   
   const [showLoginPage, setShowLoginPage] = useState(false);
   const handleAdminButtonClick = () => {
     setShowLoginPage(true);
-    console.log("Admin login button clicked");
   }
 
   const handleLoginPageClose = () => {
