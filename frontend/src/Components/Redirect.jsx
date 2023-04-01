@@ -1,26 +1,20 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PatientForm from "./PatientForm";
+import AdminPage from "./AdminComponents/AdminPage";
+import PrivateRoute from "./PrivateRoute";
 
 function Redirect() {
-  // const [data, setData] = useState("");
-
-  // useEffect(() => {
-  //   loadBackendData();
-  // }, []);
-
-  // const loadBackendData = async() => {
-  //   const message = await patientDataService.sampleGetFunction();
-  //   setData(message);
-  // }
-
   return (
     <>
       <Routes>
+        <Route exact path="/admin" element={<PrivateRoute />}>
+          <Route exact path="/admin" element={<AdminPage />} />
+        </Route>
         <Route exact path="/" element=<PatientForm /> />
       </Routes>
     </>
   );
 }
-// <Route exact path="/" component={PatientForm} />
+
 export default Redirect;
