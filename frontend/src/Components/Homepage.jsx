@@ -13,9 +13,6 @@ function Homepage({handleLinkToFormClickedProp}){
     return(
         <>
           <NavBar isHomePage={true} />
-          <head>
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-          </head>
           <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
             <div className="card card-sm border-0" style={{width: '93%', maxWidth: '860px'}}>
               <div className="card-body">

@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Modal } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 function LoginPage({handleLoginPageClose}){
+    
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isMedicalStaff, setMedicalStaff] = useState(false);
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -13,14 +18,24 @@ function LoginPage({handleLoginPageClose}){
         setPassword(event.target.value);
     }
 
+    function handleAccountTypeChange(event) {
+        if(event.target.value === "medicalStaff"){
+            setMedicalStaff(true);
+        }else{
+            setMedicalStaff(false);
+        }
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
         const loginData = {
             username,
-            password
+            password,
+            isMedicalStaff
         }
         console.log(loginData);
         // Handle login logic here
+        isMedicalStaff ? navigate("/patient-list") : navigate("/");
     }
 
     return(
@@ -40,6 +55,18 @@ function LoginPage({handleLoginPageClose}){
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
                                     <input type="password" className="form-control" id="password" onChange={handlePasswordChange} />
+                                </div>
+                                <br/>
+                                <div className="form-group">
+                                    <label style={{ marginRight: '10px' }}>Log in as:</label>
+                                    <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="accountType" id="admin" value="admin" onChange={handleAccountTypeChange} />
+                                    <label className="form-check-label" htmlFor="admin">Admin</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="accountType" id="medicalStaff" value="medicalStaff" onChange={handleAccountTypeChange} />
+                                    <label className="form-check-label" htmlFor="medicalStaff">Medical Staff</label>
+                                    </div>
                                 </div>
                                 <br/>
                                 <button type="submit" className="btn btn-outline-dark bg-warning">Login</button>
