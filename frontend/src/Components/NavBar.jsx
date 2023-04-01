@@ -3,11 +3,10 @@ import LoginPage from "./AdminComponents/LoginPage";
 import LoginButton from "./LoginButton";
 
 // Parameter returns true either when "Health Registry Form" is clicked or when form submitted
-const NavBar = ({isLinkToFormClicked, isFormSubmitProp}) => {
-  console.log("Link to form clicked: ", isLinkToFormClicked);
-  console.log("form submission clicked: ", isFormSubmitProp);
+const NavBar = ({isHomePage}) => {
+  console.log("Is Home Page: ", isHomePage);
+  
   const [showLoginPage, setShowLoginPage] = useState(false);
-
   const handleAdminButtonClick = () => {
     setShowLoginPage(true);
     console.log("Admin login button clicked");
@@ -29,9 +28,9 @@ const NavBar = ({isLinkToFormClicked, isFormSubmitProp}) => {
           >
             Priority Health Logo
           </a>
-          {isFormSubmitProp || isLinkToFormClicked ? null : (
+          {isHomePage ? (
             <LoginButton handleClick={handleAdminButtonClick} className="px-1" />
-          )}
+          ): null}
         </div>
       </div>
       {showLoginPage && <LoginPage handleLoginPageClose={handleLoginPageClose}/>}

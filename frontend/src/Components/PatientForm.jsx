@@ -6,8 +6,8 @@ import { Feedback } from "./Feedback";
 import { useNavigate } from "react-router-dom";
 // import { navigate } from '@reach/router';
 
-function PatientForm({handleAdminLoginVisibilityProp, isSubmitProp}) {
-  console.log("In PatientForm isSubmit: ", isSubmitProp);
+function PatientForm() {
+  //console.log("In PatientForm isSubmit: ", isSubmitProp);
   const navigate = useNavigate();
   // useEffect(() => {
   //   navigate('/registration-form');
@@ -31,15 +31,15 @@ function PatientForm({handleAdminLoginVisibilityProp, isSubmitProp}) {
   const [adl4, setADL4] = useState("");
 
   // Form Submit button state - Determines visibility of Admin Login button
-  //const [isSubmit, setIsSubmit] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //setIsSubmit(true);
-    if (typeof handleAdminLoginVisibilityProp === "function") {
-      handleAdminLoginVisibilityProp();
-    }
+    setIsSubmit(true);
+    // if (typeof handleAdminLoginVisibilityProp === "function") {
+    //   handleAdminLoginVisibilityProp();
+    // }
 
     //Send Data to Server and then to Save in Database
     const data = {
@@ -73,8 +73,8 @@ function PatientForm({handleAdminLoginVisibilityProp, isSubmitProp}) {
 
   return (
     <>
-      {/* <NavBar isSubmitProp={isSubmit}/> */}
-      {isSubmitProp ? (<Feedback/>): (
+      <NavBar isHomePage={false}/>
+      {isSubmit ? (<Feedback/>): (
         <div className="container mt-4 mx-4">
           <h1 className="mb-4">Personal Information</h1>
           <Form onSubmit={handleSubmit}>
