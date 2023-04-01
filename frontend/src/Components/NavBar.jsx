@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import LoginPage from "./AdminComponents/LoginPage";
 import LoginButton from "./LoginButton";
 
-// Parameter returns true either when "Health Registry Form" is clicked or when form submitted
 const NavBar = ({isHomePage}) => {
   console.log("Is Home Page: ", isHomePage);
   
@@ -19,11 +18,12 @@ const NavBar = ({isHomePage}) => {
 
   return (
     <>
-      <div className="navbar navbar-dark bg-warning">
+      {/* <div className="navbar navbar-dark" style={{backgroundColor: 'rgba(6,36,75)'}}> */}
+      <div className="navbar navbar-dark" style={{backgroundColor: '#1d3b55'}}>
         <div className="container-fluid px-5">
           <a
             className="navbar-brand navbar-light fw-bold"
-            style={{ color: "black", fontSize: "30px" }}
+            style={{ color: "rgba(255,210,7,255)", fontSize: "30px" }}
             href="/"
           >
             Priority Health Logo

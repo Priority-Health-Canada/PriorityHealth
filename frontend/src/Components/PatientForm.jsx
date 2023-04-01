@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PatientData from "../services/patientData";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import { Feedback } from "./Feedback";
-import { useNavigate } from "react-router-dom";
-// import { navigate } from '@reach/router';
 
 function PatientForm() {
-  //console.log("In PatientForm isSubmit: ", isSubmitProp);
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   navigate('/registration-form');
-  // }, []);
+ 
   // Patient data states
   const [PHN, setPHN] = useState("");
   const [name, setName] = useState("");
@@ -30,18 +24,15 @@ function PatientForm() {
   const [adl3, setADL3] = useState("");
   const [adl4, setADL4] = useState("");
 
-  // Form Submit button state - Determines visibility of Admin Login button
+  // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsSubmit(true);
-    // if (typeof handleAdminLoginVisibilityProp === "function") {
-    //   handleAdminLoginVisibilityProp();
-    // }
 
-    //Send Data to Server and then to Save in Database
+    //Send Data to Server to Save in Database
     const data = {
       name,
       dob,
