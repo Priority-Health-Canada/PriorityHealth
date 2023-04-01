@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 import { Feedback } from "./Feedback";
 
 function PatientForm() {
-
+ 
   // Patient data states
   const [PHN, setPHN] = useState("");
   const [name, setName] = useState("");
@@ -24,7 +24,7 @@ function PatientForm() {
   const [adl3, setADL3] = useState("");
   const [adl4, setADL4] = useState("");
 
-  // Form Submit button state - Determines visibility of Admin Login button
+  // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -32,7 +32,7 @@ function PatientForm() {
 
     setIsSubmit(true);
 
-    //Send Data to Server and then to Save in Database
+    //Send Data to Server to Save in Database
     const data = {
       name,
       dob,
@@ -64,8 +64,8 @@ function PatientForm() {
 
   return (
     <>
-      <NavBar isSubmitProp={isSubmit}/>
-      {isSubmit ? (<Feedback />): (
+      <NavBar isHomePage={false}/>
+      {isSubmit ? (<Feedback/>): (
         <div className="container mt-4 mx-4">
           <h1 className="mb-4">Personal Information</h1>
           <Form onSubmit={handleSubmit}>

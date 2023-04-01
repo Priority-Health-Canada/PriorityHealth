@@ -1,5 +1,6 @@
 export function Feedback() {
   return (
+    <>
     <div>
       <div className="container my-5">
         <h1 className="text-center mb-4">Thank you for your submission</h1>
@@ -10,9 +11,11 @@ export function Feedback() {
           </div>
         </div>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-warning btn-lg">Back to Home</button>
+        <a className="btn btn-warning btn-lg" href="/" role="button">Back to Home</a>
+          {/* <button className="btn btn-warning btn-lg">Back to Home</button> */}
         </div>
       </div>
     </div>
+    </>
   );
 }
