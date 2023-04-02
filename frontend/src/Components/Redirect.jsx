@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "./Homepage";
 import PatientForm from "./PatientForm";
@@ -8,10 +7,6 @@ import PrivateRoute from "./PrivateRoute";
 import removeExpiredToken from "../services/tokenService";
 
 function Redirect() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
-  );
-
   useEffect(() => {
     removeExpiredToken(); // call function to remove expired token on component mount
     const interval = setInterval(() => {
