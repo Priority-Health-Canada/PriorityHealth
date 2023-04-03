@@ -6,7 +6,6 @@ import PMScore from "./PMScore";
 
 // Create and Save a new Patient info
 export const create = async (req: TypedRequest<PatientInfo>, res: TypedResponse<ResponseProperties>): Promise<void> => {
-  // console.log(req.body.phn, typeof req.body.phn, req.body.mhq5, typeof req.body.mhq5);
   
   //Get form data from FE
   const formData: PatientInfo = {
