@@ -7,7 +7,7 @@ import { Feedback } from "./Feedback";
 function PatientForm() {
  
   // Patient data states
-  const [PHN, setPHN] = useState("");
+  const [phn, setPHN] = useState();
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
@@ -34,6 +34,7 @@ function PatientForm() {
 
     //Send Data to Server to Save in Database
     const data = {
+      phn,
       name,
       dob,
       gender,
@@ -72,11 +73,11 @@ function PatientForm() {
             <Form.Group controlId="formBasicPHN" className="my-3">
               <Form.Label className="fw-bold">Personal Health Number</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 inputMode="numeric"
-                pattern="[0-9]*"
+                //pattern="[0-9]*"
                 placeholder="Enter PHN"
-                value={PHN}
+                value={phn ? parseInt(phn) : ""}
                 onChange={(e) => setPHN(e.target.value)}
                 required
               />

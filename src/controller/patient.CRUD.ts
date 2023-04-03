@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Patient from "../models/Patient";
 import PatientInfo from "../types/patientInfo";
-// import calcultePMS from "./calculatePMS";
+import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 import PMScore from "./PMScore";
 
 // Create and Save a new Patient info
-export const create = async (req: Request, res: Response) => {
+export const create = async (req: TypedRequest<PatientInfo>, res: TypedResponse<ResponseProperties>): Promise<void> => {
+  // console.log(req.body.phn, typeof req.body.phn, req.body.mhq5, typeof req.body.mhq5);
   
   //Get form data from FE
   const formData: PatientInfo = {
@@ -39,7 +39,7 @@ export const create = async (req: Request, res: Response) => {
     res.send(savedPatientData);
   } catch (err) {
     if (err instanceof mongoose.Error) {
-      res.status(500).send({
+      res.status(500).json({
         message: err.message,
       });
     } else {
