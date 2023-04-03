@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
 import AdminInfo from "../types/adminInfo";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default-secret";
+const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
 
 export const validate = async (req: Request, res: Response) => {
   const adminData: AdminInfo = {
@@ -30,11 +30,9 @@ export const validate = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
-    const token = jwt.sign({ adminId: adminUser._id }, JWT_SECRET, {
+    const token: string = jwt.sign({ adminId: adminUser._id }, JWT_SECRET, {
       expiresIn: "30s",
     });
-
-    console.log(token);
 
     // Return 200 OK if username and password match
     return res.status(200).json({ message: "Login successful", token: token });
