@@ -1,4 +1,3 @@
-import { Response } from "express";
 import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
 import AdminInfo from "../types/adminInfo";
