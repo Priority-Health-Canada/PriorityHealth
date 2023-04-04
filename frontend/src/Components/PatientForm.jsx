@@ -29,8 +29,7 @@ function PatientForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmit(true);
-
+    
     //Send Data to Server to Save in Database
     const data = {
       phn,
@@ -57,9 +56,12 @@ function PatientForm() {
       console.log(error);
     }
 
+    setIsSubmit(true);
+
     console.log(
       `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
     );
+
   };
 
   return (
@@ -72,12 +74,12 @@ function PatientForm() {
             <Form.Group controlId="formBasicPHN" className="my-3">
               <Form.Label className="fw-bold">Personal Health Number</Form.Label>
               <Form.Control
-                type="number"
+                type="text"
                 inputMode="numeric"
-                //pattern="[0-9]*"
+                pattern="[0-9]*"
                 placeholder="Enter PHN"
                 value={phn}
-                onChange={(e) => setPHN(parseInt(e.target.value))}
+                onChange={(e) => setPHN(e.target.value)}
                 required
               />
             </Form.Group>

@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import PatientInfo from '../types/patientInfo';
 
 const PatientSchema: Schema = new Schema<PatientInfo>({
-  phn: { type: Number, required: true, unique: true },
+  phn: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   dob: { type: Date, required: true },
   gender: { type: String, required: true },
