@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PatientData from "../services/patientData";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import { Feedback } from "./Feedback";
+import ValidationErrorMsg from "./ValidationErrorMsg";
 
 function PatientForm() {
- 
+
   // Patient data states
   const [PHN, setPHN] = useState("");
   const [name, setName] = useState("");
@@ -24,14 +25,31 @@ function PatientForm() {
   const [adl3, setADL3] = useState("");
   const [adl4, setADL4] = useState("");
 
+  // Error state (Form validation)
+  const [showError, setShowError] = useState("");
+
   // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
 
+  // to keep track of the number of updates to showError
+  const showErrorRef = useRef(0);
+
+  useEffect(() => {
+    // Only execute this effect from 2nd update of showError (to distinguish from the initial showError value)
+    if (showErrorRef.current >= 1) {
+      // console.log("Show Error in useEffect: ", showError, showErrorRef.current);
+      // If there is no error to show, then set submit to true
+      if(showError === ""){
+        setIsSubmit(true)
+      }
+    } else {
+      showErrorRef.current++;
+    }
+  }, [showError]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setIsSubmit(true);
-
+    
     //Send Data to Server to Save in Database
     const data = {
       name,
@@ -54,7 +72,7 @@ function PatientForm() {
     try {
       await PatientData.sendData(data);
     } catch (error) {
-      console.log(error);
+      setShowError(error.response.data.message);
     }
 
     console.log(
@@ -505,7 +523,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-
+            <ValidationErrorMsg showErrorProp={showError}/>
             <Button variant="warning" type="submit" className="my-3">
               Submit
             </Button>

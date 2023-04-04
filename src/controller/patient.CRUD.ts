@@ -39,11 +39,11 @@ export const create = async (req: Request, res: Response) => {
     res.send(savedPatientData);
   } catch (err) {
     if (err instanceof mongoose.Error) {
-      res.status(500).send({
+      res.status(500).json({
         message: err.message,
       });
     } else {
-      res.status(500).send("Some error occurred while saving patient info.");
+      res.status(500).json({message: "Some error occurred while saving patient info."});
     }
   }
 };
