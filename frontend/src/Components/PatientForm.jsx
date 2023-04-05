@@ -7,7 +7,7 @@ import { Feedback } from "./Feedback";
 function PatientForm() {
  
   // Patient data states
-  const [PHN, setPHN] = useState("");
+  const [phn, setPHN] = useState("");
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
@@ -29,11 +29,10 @@ function PatientForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setIsSubmit(true);
-
+    
     //Send Data to Server to Save in Database
     const data = {
+      phn,
       name,
       dob,
       gender,
@@ -57,9 +56,12 @@ function PatientForm() {
       console.log(error);
     }
 
+    setIsSubmit(true);
+
     console.log(
       `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
     );
+
   };
 
   return (
@@ -76,7 +78,7 @@ function PatientForm() {
                 inputMode="numeric"
                 pattern="[0-9]*"
                 placeholder="Enter PHN"
-                value={PHN}
+                value={phn}
                 onChange={(e) => setPHN(e.target.value)}
                 required
               />

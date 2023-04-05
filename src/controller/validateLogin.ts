@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
 import AdminInfo from "../types/adminInfo";
+import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 
 const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
 
-export const validate = async (req: Request, res: Response) => {
+export const validate = async (req: TypedRequest<AdminInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
+
   const adminData: AdminInfo = {
     username: req.body.username,
     password: req.body.password,
