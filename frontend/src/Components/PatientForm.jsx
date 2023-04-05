@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import PatientData from "../services/patientData";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import NavBar from "./NavBar";
 import { Feedback } from "./Feedback";
 
 function PatientForm() {
- 
   // Patient data states
   const [phn, setPHN] = useState("");
   const [name, setName] = useState("");
@@ -24,55 +23,85 @@ function PatientForm() {
   const [adl3, setADL3] = useState("");
   const [adl4, setADL4] = useState("");
 
+  // Warning state
+  const [showWarning, setShowWarning] = useState(false);
+
   // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    //Send Data to Server to Save in Database
-    const data = {
-      phn,
-      name,
-      dob,
-      gender,
-      email,
-      indigenous,
-      mhq1,
-      mhq2,
-      mhq3,
-      mhq4,
-      mhq5,
-      mhq6,
-      adl1,
-      adl2,
-      adl3,
-      adl4,
-    };
 
-    try {
-      await PatientData.sendData(data);
-    } catch (error) {
-      console.log(error);
+    if (
+      !adl1 ||
+      !adl2 ||
+      !adl3 ||
+      !adl4 ||
+      !mhq1 ||
+      !mhq2 ||
+      !mhq3 ||
+      !mhq4 ||
+      !mhq5 ||
+      !mhq6 ||
+      !indigenous ||
+      !gender
+    ) {
+      setShowWarning(true);
+      window.scrollTo(0, 0); //Scrolls to the top of the page
+    } else {
+      setShowWarning(false);
+      //Send Data to Server to Save in Database
+      const data = {
+        phn,
+        name,
+        dob,
+        gender,
+        email,
+        indigenous,
+        mhq1,
+        mhq2,
+        mhq3,
+        mhq4,
+        mhq5,
+        mhq6,
+        adl1,
+        adl2,
+        adl3,
+        adl4,
+      };
+
+      try {
+        await PatientData.sendData(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      setIsSubmit(true);
+
+      console.log(
+        `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
+      );
     }
-
-    setIsSubmit(true);
-
-    console.log(
-      `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
-    );
-
   };
 
   return (
     <>
-      <NavBar isHomePage={false}/>
-      {isSubmit ? (<Feedback/>): (
+      <NavBar isHomePage={false} />
+      {isSubmit ? (
+        <Feedback />
+      ) : (
         <div className="container mt-4 mx-4">
           <h1 className="mb-4">Personal Information</h1>
           <Form onSubmit={handleSubmit}>
+            {showWarning && (
+              <Alert variant="danger">
+                Please select an option for all the questions.
+              </Alert>
+            )}
             <Form.Group controlId="formBasicPHN" className="my-3">
-              <Form.Label className="fw-bold">Personal Health Number</Form.Label>
+              <Form.Label className="fw-bold">
+                Personal Health Number
+              </Form.Label>
               <Form.Control
                 type="text"
                 inputMode="numeric"
@@ -153,7 +182,7 @@ function PatientForm() {
               />
             </Form.Group>
 
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicIndigenous" className="my-3">
               <Form.Label className="fw-bold">
                 Do you identify as an Indigenous person?
               </Form.Label>
@@ -165,7 +194,6 @@ function PatientForm() {
                   value="Yes"
                   checked={indigenous === "Yes"}
                   onChange={(e) => setIndigenous(e.target.value)}
-                  required
                 />
                 <Form.Check
                   label="No, I do not identify as an Indigenous person"
@@ -189,7 +217,7 @@ function PatientForm() {
             </Form.Group>
             <hr />
             <h1 className="mb-4">Medical History</h1>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicPain" className="my-3">
               <Form.Label className="fw-bold">
                 Are you living with pain?
               </Form.Label>
@@ -216,7 +244,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicSocial" className="my-3">
               <Form.Label className="fw-bold">
                 Do you have social supports?
               </Form.Label>
@@ -243,10 +271,10 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicFam" className="my-3">
               <Form.Label className="fw-bold">
-                Do you think there are any conditions or illness which run in your
-                family?
+                Do you think there are any conditions or illness which run in
+                your family?
               </Form.Label>
               <div>
                 <Form.Check
@@ -271,7 +299,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group ccontrolId="formBasicMedication" lassName="my-3">
               <Form.Label className="fw-bold">
                 Do you take any prescription medication?
               </Form.Label>
@@ -280,27 +308,27 @@ function PatientForm() {
                   label="Yes, 1-3 medications"
                   type="radio"
                   id="yesMed1-3Radio"
-                  value="Yes, 1-3 medications"
-                  checked={mhq4 === "Yes, 1-3 medications"}
-                  onChange={(e) => setMHQ1(e.target.value)}
+                  value="1-3"
+                  checked={mhq4 === "1-3"}
+                  onChange={(e) => setMHQ4(e.target.value)}
                   required
                 />
                 <Form.Check
                   label="Yes, 4-7 medications"
                   type="radio"
                   id="yesMed4-7Radio"
-                  value="Yes, 4-7 medications"
-                  checked={mhq4 === "Yes, 4-7 medications"}
-                  onChange={(e) => setMHQ1(e.target.value)}
+                  value="4-7"
+                  checked={mhq4 === "4-7"}
+                  onChange={(e) => setMHQ4(e.target.value)}
                   required
                 />
                 <Form.Check
                   label="Yes, 8 or more medications"
                   type="radio"
                   id="yesMed8Radio"
-                  value="Yes, 8 or more medications"
-                  checked={mhq4 === "Yes, 8 or more medications"}
-                  onChange={(e) => setMHQ1(e.target.value)}
+                  value="8"
+                  checked={mhq4 === "8"}
+                  onChange={(e) => setMHQ4(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -314,7 +342,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicMHI" className="my-3">
               <Form.Label className="fw-bold">
                 Have you ever been diagnosed with a mental health illness?
               </Form.Label>
@@ -341,10 +369,10 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicDrugs" className="my-3">
               <Form.Label className="fw-bold">
-                In the past 12 months, how often have you used the following drug?
-                (tobacco, alcohol, marijuana, recreational drugs)?
+                In the past 12 months, how often have you used the following
+                drug? (tobacco, alcohol, marijuana, recreational drugs)?
               </Form.Label>
               <div>
                 <Form.Check
@@ -398,7 +426,7 @@ function PatientForm() {
             <h1 className="mb-4">
               Questions about Activities of Daily Living (ADL)
             </h1>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicMove" className="my-3">
               <Form.Label className="fw-bold">
                 Are you able to move from one place to another idependently?
               </Form.Label>
@@ -425,7 +453,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicFeed" className="my-3">
               <Form.Label className="fw-bold">
                 Are you able to feed yourself?
               </Form.Label>
@@ -452,7 +480,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicHygiene" className="my-3">
               <Form.Label className="fw-bold">
                 Are you able to take care of all your hygiene and personal care
                 needs?
@@ -480,7 +508,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <Form.Group className="my-3">
+            <Form.Group controlId="formBasicBladder" className="my-3">
               <Form.Label className="fw-bold">
                 Are you able to control your bladder and bowel functions?
               </Form.Label>
@@ -513,7 +541,7 @@ function PatientForm() {
             </Button>
           </Form>
         </div>
-      )} 
+      )}
 
       <div className="container2 mt-4 mx-4"></div>
     </>
