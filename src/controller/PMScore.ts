@@ -148,6 +148,6 @@ export default new class PMScore{
         pmsScore += this.takeCareAbility(patientData.adl3);
         pmsScore += this.controlGenitalsFunction(patientData.adl4);
 
-        return pmsScore;
+        return Number(pmsScore.toFixed(1));
     }
 }
