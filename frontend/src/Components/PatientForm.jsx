@@ -26,26 +26,27 @@ function PatientForm() {
   const [adl4, setADL4] = useState("");
 
   // Error state (Form validation)
-  const [showError, setShowError] = useState("");
+  const [validationError, setValidationError] = useState("");
 
   // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
 
-  // to keep track of the number of updates to showError
+  // to keep track of the number of updates to validationError
   const showErrorRef = useRef(0);
 
   useEffect(() => {
-    // Only execute this effect from 2nd update of showError (to distinguish from the initial showError value)
+    // Only execute this effect from 2nd update of validationError (to distinguish from the initial validationError value)
     if (showErrorRef.current >= 1) {
-      // console.log("Show Error in useEffect: ", showError, showErrorRef.current);
+      console.log("Show Error in useEffect: ", validationError, showErrorRef.current);
+      
       // If there is no error to show, then set submit to true
-      if(showError === ""){
-        setIsSubmit(true)
+      if(validationError === ""){
+        setIsSubmit(true);
       }
     } else {
       showErrorRef.current++;
     }
-  }, [showError]);
+  }, [validationError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,10 +74,10 @@ function PatientForm() {
     try {
       await PatientData.sendData(data);
     } catch (error) {
-      setShowError(error.response.data.message);
+      setValidationError(error.response.data.message);
     }
 
-    setIsSubmit(true);
+    // setIsSubmit(true);
 
     console.log(
       `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
@@ -527,7 +528,7 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <ValidationErrorMsg showErrorProp={showError}/>
+            <ValidationErrorMsg showErrorProp={validationError}/>
             <Button variant="warning" type="submit" className="my-3">
               Submit
             </Button>
