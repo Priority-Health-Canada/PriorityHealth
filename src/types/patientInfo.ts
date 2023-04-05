@@ -1,5 +1,5 @@
 export default interface PatientInfo {
-  phn: number;
+  phn: string;
   name: string;
   dob: Date;
   gender: string;
