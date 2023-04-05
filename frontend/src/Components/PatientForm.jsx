@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import PatientData from "../services/patientData";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import { Feedback } from "./Feedback";
-import ValidationErrorMsg from "./ValidationErrorMsg";
 
 function PatientForm() {
 
@@ -25,28 +24,8 @@ function PatientForm() {
   const [adl3, setADL3] = useState("");
   const [adl4, setADL4] = useState("");
 
-  // Error state (Form validation)
-  const [validationError, setValidationError] = useState("");
-
   // Form Submit button state
   const [isSubmit, setIsSubmit] = useState(false);
-
-  // to keep track of the number of updates to validationError
-  const showErrorRef = useRef(0);
-
-  useEffect(() => {
-    // Only execute this effect from 2nd update of validationError (to distinguish from the initial validationError value)
-    if (showErrorRef.current >= 1) {
-      console.log("Show Error in useEffect: ", validationError, showErrorRef.current);
-      
-      // If there is no error to show, then set submit to true
-      if(validationError === ""){
-        setIsSubmit(true);
-      }
-    } else {
-      showErrorRef.current++;
-    }
-  }, [validationError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,10 +53,10 @@ function PatientForm() {
     try {
       await PatientData.sendData(data);
     } catch (error) {
-      setValidationError(error.response.data.message);
+      console.log(error);
     }
 
-    // setIsSubmit(true);
+    setIsSubmit(true);
 
     console.log(
       `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
@@ -528,7 +507,6 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-            <ValidationErrorMsg showErrorProp={validationError}/>
             <Button variant="warning" type="submit" className="my-3">
               Submit
             </Button>
