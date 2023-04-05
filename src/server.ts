@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import connectDB from "./config/connectDB";
 import { create } from "./controller/patient.CRUD";
+import { validate } from "./controller/validateLogin";
 
 const app = express(); //Create an instance of express app
 
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV?.trim() === "production") {
 
 // Handle POST requests to /api/patient by calling create function to save data in database
 app.post("/api/patient", create);
+app.post("/api/login", validate);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

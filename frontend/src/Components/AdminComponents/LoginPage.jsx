@@ -4,39 +4,39 @@ import { useNavigate } from "react-router-dom";
 
 function LoginPage({handleLoginPageClose}){
     
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [isMedicalStaff, setMedicalStaff] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isMedicalStaff, setMedicalStaff] = useState(false);
 
-    function handleUsernameChange(event) {
-        setUsername(event.target.value);
+  function handleUsernameChange(event) {
+    setUsername(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleAccountTypeChange(event) {
+    if(event.target.value === "medicalStaff"){
+        setMedicalStaff(true);
+    }else{
+        setMedicalStaff(false);
     }
+  }
 
-    function handlePasswordChange(event) {
-        setPassword(event.target.value);
+  function handleSubmit(event) {
+    event.preventDefault();
+    const loginData = {
+        username,
+        password,
+        isMedicalStaff
     }
-
-    function handleAccountTypeChange(event) {
-        if(event.target.value === "medicalStaff"){
-            setMedicalStaff(true);
-        }else{
-            setMedicalStaff(false);
-        }
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        const loginData = {
-            username,
-            password,
-            isMedicalStaff
-        }
-        console.log(loginData);
-        // Handle login logic here
-        isMedicalStaff ? navigate("/patient-list") : navigate("/");
-    }
+    console.log(loginData);
+    // Handle login logic here
+    isMedicalStaff ? navigate("/patient-list") : navigate("/");
+  }
 
     return(
         <>
