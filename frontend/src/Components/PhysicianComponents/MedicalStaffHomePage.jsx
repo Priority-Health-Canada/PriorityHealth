@@ -1,9 +1,34 @@
 // import { Card, Row, Col } from 'react-bootstrap';
 
+import { useEffect, useState } from "react";
+import patientData from "../../services/patientData";
+import NavBar from "../NavBar";
+
 function MedicalStaffHomePage({isLoggedInAsPhysician}){
+
+    const [patientsList, setPatientsList] = useState([]);
+
+    useEffect(() => {
+        const getAllPatient = async() => {
+            try {
+                const res = await patientData.getAllPatient();
+                // Compare the current value of patientsList with the new data returned from the API call
+                if (JSON.stringify(res.data) !== JSON.stringify(patientsList)) {
+                    setPatientsList(res.data);
+                }
+                console.log(patientsList);
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+        getAllPatient();  
+    }, [patientsList])
+    
     
     return(
         <>
+            <NavBar isHomePage={false}/>
             Physician Home Page
             <div className="card" style={{backgroundColor: '#9cbfdd'}}>
                 <div className="card-body" style={{margin: '2rem'}}>
@@ -14,21 +39,16 @@ function MedicalStaffHomePage({isLoggedInAsPhysician}){
                         <div className="col">Health Metric Score</div>
                         <div className="col">Health Conditions</div>
                     </div>
-                    <div className="row text-center shadow py-3 mb-4 bg-white rounded">
-                        <div className="col">Column 1 Content</div>
-                        <div className="col">Column 2 Content</div>
-                        <div className="col">Column 3 Content</div>
-                        <div className="col">Column 4 Content</div>
-                        <div className="col">Column 5 Content</div>
-
-                    </div>
-                    <div className="row text-center shadow py-3 mb-4 bg-white rounded">
-                        <div className="col">Column 1 Content</div>
-                        <div className="col">Column 2 Content</div>
-                        <div className="col">Column 3 Content</div>
-                        <div className="col">Column 4 Content</div>
-                        <div className="col">Column 5 Content</div>
-                    </div>
+                    {patientsList.map((eachPatient) => 
+                        <div key={eachPatient._id} className="row text-center shadow py-3 mb-4 bg-white rounded">
+                            <div className="col">{eachPatient.name}</div>
+                            <div className="col">{eachPatient.gender}</div>
+                            <div className="col">{eachPatient.dob}</div>
+                            <div className="col">{eachPatient.pmScore}</div>
+                            <div className="col">ICS codes...</div>
+                        </div>
+                    )}
+                    
                 </div>
             </div>
 

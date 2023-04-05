@@ -34,7 +34,7 @@ function LoginPage({handleLoginPageClose}){
         isMedicalStaff
     }
     console.log(loginData);
-    // Handle login logic here
+    
     isMedicalStaff ? navigate("/patient-list") : navigate("/");
   }
 

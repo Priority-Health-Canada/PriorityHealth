@@ -47,3 +47,16 @@ export const create = async (req: Request, res: Response) => {
     }
   }
 };
+
+// GET all patient data
+export const getAll = async (req: Request, res: Response) => {
+  try {
+    const data = await Patient.find().exec();
+    // const formattedData = data.map(doc => doc.toObject({ versionKey: false }));
+    // res.status(200).json(formattedData);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+}
