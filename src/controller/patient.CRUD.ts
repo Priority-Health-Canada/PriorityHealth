@@ -1,12 +1,18 @@
 import mongoose from "mongoose";
 import Patient from "../models/Patient";
 import PatientInfo from "../types/patientInfo";
-import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
+import {
+  ResponseProperties,
+  TypedRequest,
+  TypedResponse,
+} from "../types/request&response";
 import PMScore from "./PMScore";
 
 // Create and Save a new Patient info
-export const create = async (req: TypedRequest<PatientInfo>, res: TypedResponse<ResponseProperties>): Promise<void> => {
-  
+export const create = async (
+  req: TypedRequest<PatientInfo>,
+  res: TypedResponse<ResponseProperties>
+): Promise<void> => {
   //Get form data from FE
   const formData: PatientInfo = {
     phn: req.body.phn,
@@ -15,16 +21,16 @@ export const create = async (req: TypedRequest<PatientInfo>, res: TypedResponse<
     gender: req.body.gender,
     email: req.body.email,
     indigenous: req.body.indigenous,
-    mhq1: req.body.mhq1,
-    mhq2: req.body.mhq2,
-    mhq3: req.body.mhq3,
-    mhq4: req.body.mhq4,
-    mhq5: req.body.mhq5,
-    mhq6: req.body.mhq6,
-    adl1: req.body.adl1,
-    adl2: req.body.adl2,
-    adl3: req.body.adl3,
-    adl4: req.body.adl4,
+    pain: req.body.pain,
+    socialSupport: req.body.socialSupport,
+    familyIllness: req.body.familyIllness,
+    prescriptionMed: req.body.prescriptionMed,
+    mentalHealth: req.body.mentalHealth,
+    otherDrugUse: req.body.otherDrugUse,
+    movingAbility: req.body.movingAbility,
+    feedingAbility: req.body.feedingAbility,
+    takeCareAbility: req.body.takeCareAbility,
+    controlBladderFunction: req.body.controlBladderFunction,
   };
 
   // Calculate Patient Metric Score based off their data input in the form
@@ -38,6 +44,7 @@ export const create = async (req: TypedRequest<PatientInfo>, res: TypedResponse<
     res.send(savedPatientData);
   } catch (err) {
     if (err instanceof mongoose.Error) {
+      console.log("whats up");
       res.status(500).json({
         message: err.message,
       });
