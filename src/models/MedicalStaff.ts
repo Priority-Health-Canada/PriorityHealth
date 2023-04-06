@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import LoginInfo from "../types/loginInfo";
 
-const AdminSchema: Schema = new Schema<LoginInfo>({
+const MedicalStaffSchema: Schema = new Schema<LoginInfo>({
   username: {
     type: String,
     required: true,
@@ -13,4 +13,4 @@ const AdminSchema: Schema = new Schema<LoginInfo>({
   },
 });
 
-export default mongoose.model<LoginInfo & Document>("AdminData", AdminSchema);
+export default mongoose.model<LoginInfo & Document>("MedicalStaffData", MedicalStaffSchema);

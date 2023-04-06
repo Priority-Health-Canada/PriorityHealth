@@ -21,9 +21,12 @@ function Redirect() {
         <Route exact path="/admin" element={<PrivateRoute />}>
           <Route exact path="/admin" element={<AdminPage />} />
         </Route>
+        <Route exact path="/patient-list" element={<PrivateRoute />}>
+          <Route exact path="/patient-list" element={<MedicalStaffHomePage />} />
+        </Route>
         <Route exact path="/" element={<Homepage />}></Route>
         <Route exact path="/registration-form" element={<PatientForm />} />
-        <Route exact path="/patient-list" element={<MedicalStaffHomePage/>} />
+        {/* <Route exact path="/patient-list" element={<MedicalStaffHomePage/>} /> */}
         {/* <Route exact path="/registration-form/feedback" element={<Feedback />} /> */}
       </Routes>
     </>

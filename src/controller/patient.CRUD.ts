@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Patient from "../models/Patient";
 import PatientInfo from "../types/patientInfo";

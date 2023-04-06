@@ -1,16 +1,18 @@
 import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
-import AdminInfo from "../types/adminInfo";
+import LoginInfo from "../types/loginInfo";
 import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 
 const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
 
-export const validate = async (req: TypedRequest<AdminInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
+export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
 
-  const adminData: AdminInfo = {
+  const adminData: LoginInfo = {
     username: req.body.username,
     password: req.body.password,
+    accountType: req.body.accountType
   };
+  console.log(adminData);
 
   if (!adminData.username || !adminData.password) {
     // Return 400 Bad Request if either field is missing
