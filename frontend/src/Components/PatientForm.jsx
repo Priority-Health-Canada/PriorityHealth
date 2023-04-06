@@ -12,16 +12,16 @@ function PatientForm() {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [indigenous, setIndigenous] = useState("");
-  const [pain, setpain] = useState("");
-  const [socialSupport, setsocialSupport] = useState("");
-  const [familyIllness, setfamilyIllness] = useState("");
-  const [prescriptionMed, setprescriptionMed] = useState("");
-  const [mentalHealth, setmentalHealth] = useState("");
-  const [otherDrugUse, setotherDrugUse] = useState("");
-  const [movingAbility, setmovingAbility] = useState("");
-  const [feedingAbility, setfeedingAbility] = useState("");
-  const [takeCareAbility, settakeCareAbility] = useState("");
-  const [controlBladderFunction, setcontrolBladderFunction] = useState("");
+  const [pain, setPain] = useState("");
+  const [socialSupport, setSocialSupport] = useState("");
+  const [familyIllness, setFamilyIllness] = useState("");
+  const [prescriptionMed, setPrescriptionMed] = useState("");
+  const [mentalHealth, setMentalHealth] = useState("");
+  const [otherDrugUse, setOtherDrugUse] = useState("");
+  const [movingAbility, setMovingAbility] = useState("");
+  const [feedingAbility, setFeedingAbility] = useState("");
+  const [takeCareAbility, setTakeCareAbility] = useState("");
+  const [controlBladderFunction, setControlBladderFunction] = useState("");
 
   // Warning state
   const [showWarning, setShowWarning] = useState(false);
@@ -78,9 +78,6 @@ function PatientForm() {
 
       setIsSubmit(true);
 
-      console.log(
-        `Name: ${name}\nDate of Birth: ${dob}\nGender: ${gender}\nEmail: ${email}`
-      );
     }
   };
 
@@ -229,7 +226,7 @@ function PatientForm() {
                   id="yesPainRadio"
                   value="yes"
                   checked={pain === "yes"}
-                  onChange={(e) => setpain(e.target.value)}
+                  onChange={(e) => setPain(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -239,7 +236,7 @@ function PatientForm() {
                   id="noPainRadio"
                   value="no"
                   checked={pain === "no"}
-                  onChange={(e) => setpain(e.target.value)}
+                  onChange={(e) => setPain(e.target.value)}
                   required
                 />
               </div>
@@ -256,7 +253,7 @@ function PatientForm() {
                   id="yesSocialRadio"
                   value="yes"
                   checked={socialSupport === "yes"}
-                  onChange={(e) => setsocialSupport(e.target.value)}
+                  onChange={(e) => setSocialSupport(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -266,7 +263,7 @@ function PatientForm() {
                   id="noSocialRadio"
                   value="no"
                   checked={socialSupport === "no"}
-                  onChange={(e) => setsocialSupport(e.target.value)}
+                  onChange={(e) => setSocialSupport(e.target.value)}
                   required
                 />
               </div>
@@ -284,7 +281,7 @@ function PatientForm() {
                   id="yesConditionsRadio"
                   value="yes"
                   checked={familyIllness === "yes"}
-                  onChange={(e) => setfamilyIllness(e.target.value)}
+                  onChange={(e) => setFamilyIllness(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -294,7 +291,7 @@ function PatientForm() {
                   id="noConditionRadio"
                   value="no"
                   checked={familyIllness === "no"}
-                  onChange={(e) => setfamilyIllness(e.target.value)}
+                  onChange={(e) => setFamilyIllness(e.target.value)}
                   required
                 />
               </div>
@@ -310,7 +307,7 @@ function PatientForm() {
                   id="yesMed1-3Radio"
                   value="1-3"
                   checked={prescriptionMed === "1-3"}
-                  onChange={(e) => setprescriptionMed(e.target.value)}
+                  onChange={(e) => setPrescriptionMed(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -319,7 +316,7 @@ function PatientForm() {
                   id="yesMed4-7Radio"
                   value="4-7"
                   checked={prescriptionMed === "4-7"}
-                  onChange={(e) => setprescriptionMed(e.target.value)}
+                  onChange={(e) => setPrescriptionMed(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -328,7 +325,7 @@ function PatientForm() {
                   id="yesMed8Radio"
                   value="8"
                   checked={prescriptionMed === "8"}
-                  onChange={(e) => setprescriptionMed(e.target.value)}
+                  onChange={(e) => setPrescriptionMed(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -337,7 +334,7 @@ function PatientForm() {
                   id="noMedRadio"
                   value="no"
                   checked={prescriptionMed === "no"}
-                  onChange={(e) => setprescriptionMed(e.target.value)}
+                  onChange={(e) => setPrescriptionMed(e.target.value)}
                   required
                 />
               </div>
@@ -354,7 +351,7 @@ function PatientForm() {
                   id="yesMentalRadio"
                   value="yes"
                   checked={mentalHealth === "yes"}
-                  onChange={(e) => setmentalHealth(e.target.value)}
+                  onChange={(e) => setMentalHealth(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -364,7 +361,7 @@ function PatientForm() {
                   id="noMentalRadio"
                   value="no"
                   checked={mentalHealth === "no"}
-                  onChange={(e) => setmentalHealth(e.target.value)}
+                  onChange={(e) => setMentalHealth(e.target.value)}
                   required
                 />
               </div>
@@ -381,7 +378,7 @@ function PatientForm() {
                   id="drugOnceRadio"
                   value="Once or Twice"
                   checked={otherDrugUse === "Once or Twice"}
-                  onChange={(e) => setotherDrugUse(e.target.value)}
+                  onChange={(e) => setOtherDrugUse(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -390,7 +387,7 @@ function PatientForm() {
                   id="drugDailyRadio"
                   value="Daily"
                   checked={otherDrugUse === "Daily"}
-                  onChange={(e) => setotherDrugUse(e.target.value)}
+                  onChange={(e) => setOtherDrugUse(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -399,7 +396,7 @@ function PatientForm() {
                   id="drugWeeklyRadio"
                   value="Weekly"
                   checked={otherDrugUse === "Weekly"}
-                  onChange={(e) => setotherDrugUse(e.target.value)}
+                  onChange={(e) => setOtherDrugUse(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -408,7 +405,7 @@ function PatientForm() {
                   id="drugMonthlyRadio"
                   value="Monthly"
                   checked={otherDrugUse === "Monthly"}
-                  onChange={(e) => setotherDrugUse(e.target.value)}
+                  onChange={(e) => setOtherDrugUse(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -417,7 +414,7 @@ function PatientForm() {
                   id="drugNeverRadio"
                   value="Never"
                   checked={otherDrugUse === "Never"}
-                  onChange={(e) => setotherDrugUse(e.target.value)}
+                  onChange={(e) => setOtherDrugUse(e.target.value)}
                   required
                 />
               </div>
@@ -438,7 +435,7 @@ function PatientForm() {
                   id="yesindependentRadio"
                   value="yes"
                   checked={movingAbility === "yes"}
-                  onChange={(e) => setmovingAbility(e.target.value)}
+                  onChange={(e) => setMovingAbility(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -448,7 +445,7 @@ function PatientForm() {
                   id="ynoindependentRadio"
                   value="no"
                   checked={movingAbility === "no"}
-                  onChange={(e) => setmovingAbility(e.target.value)}
+                  onChange={(e) => setMovingAbility(e.target.value)}
                   required
                 />
               </div>
@@ -465,7 +462,7 @@ function PatientForm() {
                   id="yesFeedRadio"
                   value="yes"
                   checked={feedingAbility === "yes"}
-                  onChange={(e) => setfeedingAbility(e.target.value)}
+                  onChange={(e) => setFeedingAbility(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -475,7 +472,7 @@ function PatientForm() {
                   id="noFeedRadio"
                   value="no"
                   checked={feedingAbility === "no"}
-                  onChange={(e) => setfeedingAbility(e.target.value)}
+                  onChange={(e) => setFeedingAbility(e.target.value)}
                   required
                 />
               </div>
@@ -493,7 +490,7 @@ function PatientForm() {
                   id="yesCareRadio"
                   value="yes"
                   checked={takeCareAbility === "yes"}
-                  onChange={(e) => settakeCareAbility(e.target.value)}
+                  onChange={(e) => setTakeCareAbility(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -503,7 +500,7 @@ function PatientForm() {
                   id="noCareRadio"
                   value="no"
                   checked={takeCareAbility === "no"}
-                  onChange={(e) => settakeCareAbility(e.target.value)}
+                  onChange={(e) => setTakeCareAbility(e.target.value)}
                   required
                 />
               </div>
@@ -520,7 +517,7 @@ function PatientForm() {
                   id="yesControlRadio"
                   value="yes"
                   checked={controlBladderFunction === "yes"}
-                  onChange={(e) => setcontrolBladderFunction(e.target.value)}
+                  onChange={(e) => setControlBladderFunction(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -530,7 +527,7 @@ function PatientForm() {
                   id="noControlRadio"
                   value="no"
                   checked={controlBladderFunction === "no"}
-                  onChange={(e) => setcontrolBladderFunction(e.target.value)}
+                  onChange={(e) => setControlBladderFunction(e.target.value)}
                   required
                 />
               </div>
