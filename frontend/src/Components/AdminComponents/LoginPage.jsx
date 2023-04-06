@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import AdminData from "../../services/adminData";
+import SuperUserData from "../../services/superUser";
 
 function LoginPage({handleLoginPageClose}){
     
@@ -41,7 +41,7 @@ function LoginPage({handleLoginPageClose}){
     console.log("Data: ", loginData);
 
     try {
-      const res = await AdminData.sendData(loginData);
+      const res = await SuperUserData.sendData(loginData);
       const token = res.data.token;
       localStorage.setItem("token", token);
       

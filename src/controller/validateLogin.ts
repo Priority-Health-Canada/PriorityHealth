@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
+import MedicalStaff from "../models/MedicalStaff";
 import LoginInfo from "../types/loginInfo";
 import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 
@@ -7,33 +8,37 @@ const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
 
 export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
 
-  const adminData: LoginInfo = {
+  const loginData: LoginInfo = {
     username: req.body.username,
     password: req.body.password,
     accountType: req.body.accountType
   };
-  console.log(adminData);
+  console.log(loginData);
 
-  if (!adminData.username || !adminData.password) {
+  if (!loginData.username || !loginData.password) {
     // Return 400 Bad Request if either field is missing
     return res
       .status(400)
       .json({ message: "Username and password are required" });
   }
+  var X;
+  loginData.accountType === 'admin' ? (X = Admin) : (X = MedicalStaff)
 
   try {
     // Find user with matching username and password
-    const adminUser = await Admin.findOne({
-      username: adminData.username,
-      password: adminData.password,
+    // Depending on the account type chosen, X could be either Admin or MedicalStaff model
+    // Admin and medical staff accounts are considered as superUser
+    const superUser = await X.findOne({
+      username: loginData.username,
+      password: loginData.password,
     });
 
-    if (!adminUser) {
+    if (!superUser) {
       // Return 401 Unauthorized if username and password don't match
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
-    const token: string = jwt.sign({ adminId: adminUser._id }, JWT_SECRET, {
+    const token: string = jwt.sign({ userId: superUser._id }, JWT_SECRET, {
       expiresIn: "30s",
     });
 
