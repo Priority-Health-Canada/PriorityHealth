@@ -38,7 +38,7 @@ function LoginPage({handleLoginPageClose}){
       password,
       accountType
     };
-    console.log("Data: ", loginData);
+    // console.log("Data: ", loginData);
 
     try {
       const res = await SuperUserData.sendData(loginData);
@@ -53,8 +53,6 @@ function LoginPage({handleLoginPageClose}){
     } catch (error) {
       console.log(error);
     }
-    
-    // isMedicalStaff ? navigate("/patient-list") : navigate("/");
   }
 
     return(
