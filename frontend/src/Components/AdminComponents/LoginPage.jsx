@@ -11,12 +11,10 @@ function LoginPage({ handleLoginPageClose }) {
   const navigate = useNavigate();
 
   function handleUsernameChange(event) {
-    setShowError("");
     setUsername(event.target.value);
   }
 
   function handlePasswordChange(event) {
-    setShowError("");
     setPassword(event.target.value);
   }
 
@@ -26,7 +24,6 @@ function LoginPage({ handleLoginPageClose }) {
       username,
       password,
     };
-    // console.log("Data: ", loginData);
 
     try {
       const res = await AdminData.sendData(loginData);
@@ -34,7 +31,6 @@ function LoginPage({ handleLoginPageClose }) {
       localStorage.setItem("token", token);
       navigate("/admin"); // navigate to AdminPage
     } catch (error) {
-      //console.log(error.response.data);
       setShowError(error.response.data?.message);
     }
   };
@@ -68,7 +64,7 @@ function LoginPage({ handleLoginPageClose }) {
                   />
                 </div>
                 <br />
-                <ValidationErrorMsg showErrorProp={showError}/>
+                <ValidationErrorMsg showErrorProp={showError} />
                 <button
                   type="submit"
                   className="btn btn-outline-dark bg-warning"
