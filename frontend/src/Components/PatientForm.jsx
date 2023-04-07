@@ -532,7 +532,6 @@ function PatientForm() {
                 />
               </div>
             </Form.Group>
-
             <Button variant="warning" type="submit" className="my-3">
               Submit
             </Button>

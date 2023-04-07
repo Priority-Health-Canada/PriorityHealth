@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import AdminData from "../../services/adminData";
+import ValidationErrorMsg from "../ValidationErrorMsg";
 
 function LoginPage({ handleLoginPageClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState("");
   const navigate = useNavigate();
 
   function handleUsernameChange(event) {
@@ -22,7 +24,6 @@ function LoginPage({ handleLoginPageClose }) {
       username,
       password,
     };
-    console.log("Data: ", loginData);
 
     try {
       const res = await AdminData.sendData(loginData);
@@ -30,7 +31,7 @@ function LoginPage({ handleLoginPageClose }) {
       localStorage.setItem("token", token);
       navigate("/admin"); // navigate to AdminPage
     } catch (error) {
-      console.log(error);
+      setShowError(error.response.data?.message);
     }
   };
 
@@ -63,6 +64,7 @@ function LoginPage({ handleLoginPageClose }) {
                   />
                 </div>
                 <br />
+                <ValidationErrorMsg showErrorProp={showError} />
                 <button
                   type="submit"
                   className="btn btn-outline-dark bg-warning"

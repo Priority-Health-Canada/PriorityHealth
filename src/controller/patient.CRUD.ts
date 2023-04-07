@@ -49,7 +49,7 @@ export const create = async (
         message: err.message,
       });
     } else {
-      res.status(500).send("Some error occurred while saving patient info.");
+      res.status(500).json({message: "Some error occurred while saving patient info."});
     }
   }
 };
