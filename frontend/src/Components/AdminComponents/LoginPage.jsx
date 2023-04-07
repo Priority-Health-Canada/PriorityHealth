@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import ValidationErrorMsg from "../ValidationErrorMsg";
 import SuperUserData from "../../services/superUser";
+   
 
-function LoginPage({handleLoginPageClose}){
-    
-  const navigate = useNavigate();
 
+function LoginPage({ handleLoginPageClose }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState('');
   const [accountType, setAccountType] = useState('');
+  const navigate = useNavigate();
+
   // const [isMedicalStaff, setMedicalStaff] = useState(false);
 
   function handleUsernameChange(event) {
@@ -51,7 +54,7 @@ function LoginPage({handleLoginPageClose}){
         navigate("/admin"); // navigate to AdminPage
       }
     } catch (error) {
-      console.log(error);
+      setShowError(error.response.data?.message);
     }
   }
 
@@ -86,6 +89,7 @@ function LoginPage({handleLoginPageClose}){
                                     </div>
                                 </div>
                                 <br/>
+                                <ValidationErrorMsg showErrorProp={showError} />
                                 <button type="submit" className="btn btn-outline-dark bg-warning">Login</button>
                             </form>
                         </div>
