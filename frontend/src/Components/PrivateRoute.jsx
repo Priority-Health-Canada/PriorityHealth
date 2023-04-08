@@ -17,31 +17,37 @@ const PrivateRoute = ({ElementProp, allowedAccountTypesProp}) => {
   // return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const decodedToken = jwt_decode(token);
-  const accountType = decodedToken.accountType;
 
   useEffect(() => {
-    
-    if (!token) {
+    const isAuthenticated = !!token;
+    if (!isAuthenticated) {
       navigate("/");
-    }else {
+      return;
+    }
+
+    try {
+      const decodedToken = jwt_decode(token);
+      const accountType = decodedToken.accountType;
       if (!allowedAccountTypesProp.includes(accountType)) {
         navigate("/");
+        return;
       }
-    }
-
-    if(removeExpiredToken(decodedToken)){
+    } catch(error) {
       navigate("/");
+      return;
+    }
+    
+    if (removeExpiredToken(jwt_decode(token))) {
+      navigate("/");
+      return;
     }
 
-  }, [navigate, token, allowedAccountTypesProp, accountType, decodedToken]);
+  }, [navigate, allowedAccountTypesProp, token]);
 
   // No token or accountType does not have access to an interface
-  if (!token || (!allowedAccountTypesProp.includes(accountType))) {
-    return <Navigate to="/" replace />;;
+  if (!token || (token && !allowedAccountTypesProp.includes(jwt_decode(token).accountType))) {
+    return <Navigate to="/" replace />;
   }
-
-
 
   return <ElementProp />;
 
