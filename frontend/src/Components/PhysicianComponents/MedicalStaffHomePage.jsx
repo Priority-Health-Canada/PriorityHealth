@@ -1,5 +1,3 @@
-// import { Card, Row, Col } from 'react-bootstrap';
-
 import { useEffect, useState } from "react";
 import patientData from "../../services/patientData";
 import NavBar from "../NavBar";

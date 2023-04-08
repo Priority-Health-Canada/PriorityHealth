@@ -16,10 +16,12 @@ function LoginPage({ handleLoginPageClose }) {
   // const [isMedicalStaff, setMedicalStaff] = useState(false);
 
   function handleUsernameChange(event) {
+    setShowError("");
     setUsername(event.target.value);
   }
 
   function handlePasswordChange(event) {
+    setShowError("");
     setPassword(event.target.value);
   }
 
