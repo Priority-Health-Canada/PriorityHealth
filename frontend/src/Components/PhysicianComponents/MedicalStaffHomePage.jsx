@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import patientData from "../../services/patientData";
 import NavBar from "../NavBar";
 
-function MedicalStaffHomePage({isLoggedInAsPhysician}){
+function MedicalStaffHomePage(){
 
     const [patientsList, setPatientsList] = useState([]);
 

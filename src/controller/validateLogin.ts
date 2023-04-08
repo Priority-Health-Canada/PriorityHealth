@@ -5,6 +5,7 @@ import LoginInfo from "../types/loginInfo";
 import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 
 const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
+const ADMIN_USERNAME: string = process.env.ADMIN_USERNAME || "";
 
 export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
 
@@ -21,14 +22,14 @@ export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<
       .status(400)
       .json({ message: "Username and password are required" });
   }
-  var collection;
-  loginData.accountType === 'admin' ? (collection = Admin) : (collection = MedicalStaff)
+  var Collection;
+  loginData.accountType === 'admin' ? (Collection = Admin) : (Collection = MedicalStaff)
 
   try {
     // Find user with matching username and password
-    // Depending on the account type chosen, X could be either Admin or MedicalStaff model
+    // Depending on the account type chosen, variable Collection could be either Admin or MedicalStaff model
     // Admin and medical staff accounts are considered as super users
-    const superUser = await collection.findOne({
+    const superUser = await Collection.findOne({
       username: loginData.username,
       password: loginData.password,
     });
@@ -37,10 +38,18 @@ export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<
       // Return 401 Unauthorized if username and password don't match
       return res.status(401).json({ message: "Invalid username or password" });
     }
-
-    const token: string = jwt.sign({ userId: superUser._id }, JWT_SECRET, {
-      expiresIn: "30s",
-    });
+    let token: string;
+    
+    if(superUser.username === ADMIN_USERNAME){
+      token = jwt.sign({ userId: superUser._id, accountType: "admin" }, JWT_SECRET, {
+        expiresIn: "30s",
+      });
+    }else{
+      token = jwt.sign({ userId: superUser._id, accountType: "medicalStaff" }, JWT_SECRET, {
+        expiresIn: "30s",
+      });
+    }
+    
 
     // Return 200 OK if username and password match
     return res.status(200).json({ message: "Login successful", token: token });
