@@ -13,6 +13,8 @@ connectDB();
 app.use(cors()); //Allow different domains to access endpoints in backend
 app.use(express.json()); // parse requests of content-type - application/json
 
+app.get("/api/patient-list", getAll);
+
 if (process.env.NODE_ENV?.trim() === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/build"))); // Pointing to the Express server where the React build is.
   app.get("/*", (req: express.Request, res: express.Response) => {
@@ -30,7 +32,7 @@ if (process.env.NODE_ENV?.trim() === "production") {
 app.post("/api/patient", create);
 app.post("/api/login", validate);
 
-app.get("/api/patient-list", getAll);
+//app.get("/api/patient-list", getAll);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

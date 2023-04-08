@@ -39,6 +39,7 @@ function MedicalStaffHomePage(){
                         <div className="col">Health Metric Score</div>
                         <div className="col">Health Conditions</div>
                     </div>
+                    {patientsList}
                     {patientsList.map((eachPatient) => 
                         <div key={eachPatient._id} className="row text-center shadow py-3 mb-4 bg-white rounded">
                             <div className="col">{eachPatient.name}</div>
