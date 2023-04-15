@@ -1,45 +1,61 @@
 import jwt from "jsonwebtoken";
 import Admin from "../models/Admin";
-import AdminInfo from "../types/adminInfo";
+import MedicalStaff from "../models/MedicalStaff";
+import LoginInfo from "../types/loginInfo";
 import { ResponseProperties, TypedRequest, TypedResponse } from "../types/request&response";
 
 const JWT_SECRET: string = process.env.JWT_SECRET || "default-secret";
+const ADMIN_USERNAME: string = process.env.ADMIN_USERNAME || "";
 
-export const validate = async (req: TypedRequest<AdminInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
+export const validate = async (req: TypedRequest<LoginInfo>, res: TypedResponse<ResponseProperties>): Promise<TypedResponse<ResponseProperties>> => {
 
-  const adminData: AdminInfo = {
+  const loginData: LoginInfo = {
     username: req.body.username,
     password: req.body.password,
+    accountType: req.body.accountType
   };
+  // console.log(loginData);
 
-  if (!adminData.username || !adminData.password) {
+  if (!loginData.username || !loginData.password) {
     // Return 400 Bad Request if either field is missing
     return res
       .status(400)
       .json({ message: "Username and password are required" });
   }
+  var Collection;
+  loginData.accountType === 'admin' ? (Collection = Admin) : (Collection = MedicalStaff)
 
   try {
     // Find user with matching username and password
-    const adminUser = await Admin.findOne({
-      username: adminData.username,
-      password: adminData.password,
+    // Depending on the account type chosen, variable Collection could be either Admin or MedicalStaff model
+    // Admin and medical staff accounts are considered as super users
+    const superUser = await Collection.findOne({
+      username: loginData.username,
+      password: loginData.password,
     });
 
-    if (!adminUser) {
+    if (!superUser) {
       // Return 401 Unauthorized if username and password don't match
       return res.status(401).json({ message: "Invalid username or password" });
     }
-
-    const token: string = jwt.sign({ adminId: adminUser._id }, JWT_SECRET, {
-      expiresIn: "30s",
-    });
+    let token: string;
+    
+    if(superUser.username === ADMIN_USERNAME){
+      token = jwt.sign({ userId: superUser._id, accountType: "admin" }, JWT_SECRET, {
+        expiresIn: "30s",
+      });
+    }else{
+      token = jwt.sign({ userId: superUser._id, accountType: "medicalStaff" }, JWT_SECRET, {
+        expiresIn: "30s",
+      });
+    }
+    
 
     // Return 200 OK if username and password match
     return res.status(200).json({ message: "Login successful", token: token });
   } catch (error) {
     // Handle errors
-    console.error(error);
+    // console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import connectDB from "./config/connectDB";
-import { create } from "./controller/patient.CRUD";
+import { create, getAll } from "./controller/patient.CRUD";
 import { validate } from "./controller/validateLogin";
 
 const app = express(); //Create an instance of express app
@@ -12,6 +12,8 @@ connectDB();
 
 app.use(cors()); //Allow different domains to access endpoints in backend
 app.use(express.json()); // parse requests of content-type - application/json
+
+app.get("/api/patient-list", getAll);
 
 if (process.env.NODE_ENV?.trim() === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/build"))); // Pointing to the Express server where the React build is.
@@ -29,6 +31,8 @@ if (process.env.NODE_ENV?.trim() === "production") {
 // Handle POST requests to /api/patient by calling create function to save data in database
 app.post("/api/patient", create);
 app.post("/api/login", validate);
+
+//app.get("/api/patient-list", getAll);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
