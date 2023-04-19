@@ -2,7 +2,7 @@ import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
 
 
-function Homepage({handleLinkToFormClickedProp}){
+function Homepage(){
     const navigate = useNavigate();
 
     // Link to Form
