@@ -11,6 +11,9 @@
     "dev": "set NODE_ENV=development && concurrently \"npm run frontend:dev\" \"tsc --watch\" \"nodemon src/server.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aqeelmozumder/CodeHack.git"
