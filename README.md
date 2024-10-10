@@ -7,4 +7,4 @@ The idea started off from Island Health's Code Hack 2023 event. Bringing the con
 Frontend - React <br/>
 Backend - Express <br/>
 Database - MongoDB <br/>
-Appliction Deployed on Heroku at <a href="https://priority-health.herokuapp.com/">Priority-Health</a>
+Appliction Deployed on Render at <a href="https://priorityhealth.onrender.com/">Priority-Health</a>
