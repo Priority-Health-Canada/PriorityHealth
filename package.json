@@ -6,9 +6,9 @@
   "scripts": {
     "postinstall": "cd frontend && npm run build",
     "frontend:dev": "cd frontend && npm start",
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node build/src/server.js",
-    "dev": "set NODE_ENV=development && concurrently \"npm run frontend:dev\" \"npx tsc --watch\" \"nodemon src/server.ts\"",
+    "dev": "set NODE_ENV=development && concurrently \"npm run frontend:dev\" \"tsc --watch\" \"nodemon src/server.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
